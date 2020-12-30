@@ -16,9 +16,6 @@ class BooksRepository( private val client : HttpClient) {
             query : String,
             page:Int
     ){
-        liveData.postValue(
-            Result.Loading(true)
-        )
         try{
             //val requestUrl = "https://www.googleapis.com/books/v1/volumes?q=$query&startIndex=${page*10}&maxResults=10"
             val requestUrl = "http://192.168.0.103:3000/testQueries2"
@@ -27,7 +24,13 @@ class BooksRepository( private val client : HttpClient) {
                     method = HttpMethod.Get
                 }
             "Ktor_request Response: $response".print()
-            liveData.postValue(Result.Success(response))
+            liveData.postValue(
+                    Result.Success(response)
+            )/*.apply {
+                liveData.postValue(
+                        Result.Loading(false)
+                )
+            }*/
         }catch (e : java.lang.Exception){
             if (e.message.isValid()) {
                 liveData.postValue(Result.Error.RecoverableError(Exception(e.message)))

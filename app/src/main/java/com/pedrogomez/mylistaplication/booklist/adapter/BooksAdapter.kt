@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pedrogomez.mylistaplication.booklist.models.bookresponse.Item
+import com.pedrogomez.mylistaplication.extensions.print
 
 class BooksAdapter(
-    private val items: List<Item>,
     private val onClickItemListener: BookViewHolder.OnClickItemListener
 ) : RecyclerView.Adapter<BookViewHolder>() {
+
+    private var items: ArrayList<Item> = ArrayList()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,4 +36,13 @@ class BooksAdapter(
     }
 
     override fun getItemCount() = items.size
+
+    fun setData(newItems: List<Item>?) {
+        newItems?.let {
+            //items.clear()
+            items.addAll(it)
+            "size in adapter ${items.size}".print()
+            notifyItemInserted(items.size)
+        }
+    }
 }

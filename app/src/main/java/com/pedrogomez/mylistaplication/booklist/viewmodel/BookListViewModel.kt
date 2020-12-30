@@ -27,12 +27,19 @@ class BookListViewModel(private val booksRepository: BooksRepository) : ViewMode
         page:Int
     ){
         scope.launch {
+            booksLiveData.postValue(
+                    Result.Loading(true)
+            )
             booksRepository.getListOfBooks(
                 booksLiveData,
                 query,
                 page
             )
-        }
+        }/*.isCompleted.apply {
+            booksLiveData.postValue(
+                    Result.Loading(false)
+            )
+        }*/
     }
 
     private fun getStringAsQueryString(query:String):String{

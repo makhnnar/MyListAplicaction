@@ -8,7 +8,7 @@
     tools:context=".booklist.BookListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDayEvents"
+        android:id="@+id/rvBookItems"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -20,7 +20,7 @@
         tools:listitem="@layout/view_holder_book" />
 
     <ProgressBar
-        android:id="@+id/rlBase"
+        android:id="@+id/pbBooksLoading"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
