@@ -14,4 +14,4 @@ data class AccessInfo(
         val textToSpeechPermission: String?,
         val viewability: String?,
         val webReaderLink: String?
-)
+):java.io.Serializable

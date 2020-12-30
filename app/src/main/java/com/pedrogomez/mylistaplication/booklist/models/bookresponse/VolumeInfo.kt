@@ -24,4 +24,4 @@ data class VolumeInfo(
         val readingModes: ReadingModes? = null,
         val subtitle: String? = null,
         val title: String? = null
-)
+):java.io.Serializable

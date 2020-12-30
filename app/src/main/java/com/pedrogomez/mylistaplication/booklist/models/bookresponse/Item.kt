@@ -12,4 +12,4 @@ data class Item(
         val searchInfo: SearchInfo? = null,
         val selfLink: String?,
         val volumeInfo: VolumeInfo?
-)
+):java.io.Serializable

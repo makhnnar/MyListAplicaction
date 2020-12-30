@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 data class RetailPrice(
     val amountInMicros: Int?,
     val currencyCode: String?
-)
+):java.io.Serializable

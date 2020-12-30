@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 data class PanelizationSummary(
     val containsEpubBubbles: Boolean?,
     val containsImageBubbles: Boolean?
-)
+):java.io.Serializable

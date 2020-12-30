@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 data class IndustryIdentifier(
     val identifier: String?,
     val type: String?
-)
+):java.io.Serializable

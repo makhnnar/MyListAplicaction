@@ -7,4 +7,4 @@ data class Offer(
         val finskyOfferType: Int? = null,
         val listPrice: ListPriceX? = null,
         val retailPrice: RetailPrice? = null
-)
+):java.io.Serializable
