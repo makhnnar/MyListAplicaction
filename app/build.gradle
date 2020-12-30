@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlinx-serialization'
 }
 
 android {
@@ -23,12 +25,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        pickFirst("META-INF/kotlinx-io.kotlin_module")
+        pickFirst("META-INF/atomicfu.kotlin_module")
+        pickFirst("META-INF/kotlinx-coroutines-io.kotlin_module")
+        pickFirst("META-INF/kotlinx-coroutines-core.kotlin_module")
+        pickFirst("META-INF/kotlinx-serialization-runtime.kotlin_module")
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -42,4 +54,11 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Ktor
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+    implementation "io.ktor:ktor-client-cio:$ktor_version"
+    implementation "io.ktor:ktor-client-serialization-jvm:$ktor_version"
+
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 }
