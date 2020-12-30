@@ -2,13 +2,13 @@ package com.pedrogomez.mylistaplication.booklist.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pedrogomez.mylistaplication.booklist.model.BooksListResponse
+import com.pedrogomez.mylistaplication.booklist.models.bookresponse.BooksResponse
 import com.pedrogomez.mylistaplication.booklist.repository.BooksRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
-import com.pedrogomez.mylistaplication.booklist.model.Result
+import com.pedrogomez.mylistaplication.booklist.models.result.Result
 
 class BookListViewModel(private val booksRepository: BooksRepository) : ViewModel() {
 
@@ -16,10 +16,10 @@ class BookListViewModel(private val booksRepository: BooksRepository) : ViewMode
         Dispatchers.IO
     )
 
-    private val booksListLiveData = MutableLiveData<Result<BooksListResponse>>()
+    private val booksLiveData = MutableLiveData<Result<BooksResponse>>()
 
-    fun observeData() : MutableLiveData<Result<BooksListResponse>> {
-        return booksListLiveData
+    fun observeData() : MutableLiveData<Result<BooksResponse>> {
+        return booksLiveData
     }
 
     fun getReposFromGitHub(
@@ -28,7 +28,7 @@ class BookListViewModel(private val booksRepository: BooksRepository) : ViewMode
     ){
         scope.launch {
             booksRepository.getListOfBooks(
-                booksListLiveData,
+                booksLiveData,
                 query,
                 page
             )

@@ -1,4 +1,4 @@
-package com.pedrogomez.mylistaplication.booklist.model
+package com.pedrogomez.mylistaplication.booklist.models.result
 
 sealed class Result<out T : Any> {
     data class Success<out T : Any>(val data: T) : Result<T>()
