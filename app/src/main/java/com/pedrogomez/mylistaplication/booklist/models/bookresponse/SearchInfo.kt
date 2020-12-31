@@ -5,4 +5,4 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SearchInfo(
     val textSnippet: String?
-):java.io.Serializable
+)

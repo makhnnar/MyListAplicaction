@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 data class ReadingModes(
     val image: Boolean?,
     val text: Boolean?
-):java.io.Serializable
+)

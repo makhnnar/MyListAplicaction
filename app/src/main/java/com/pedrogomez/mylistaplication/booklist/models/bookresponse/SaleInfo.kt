@@ -11,4 +11,4 @@ data class SaleInfo(
         val offers: List<Offer>? = null,
         val retailPrice: RetailPriceX? = null,
         val saleability: String?
-):java.io.Serializable
+)

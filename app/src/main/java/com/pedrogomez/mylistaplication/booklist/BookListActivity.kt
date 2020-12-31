@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pedrogomez.mylistaplication.bookdetail.BookDetailActivity
 import com.pedrogomez.mylistaplication.booklist.adapter.BookViewHolder
 import com.pedrogomez.mylistaplication.booklist.adapter.BooksAdapter
+import com.pedrogomez.mylistaplication.booklist.models.adapters.BookDataAdapter
 import com.pedrogomez.mylistaplication.booklist.models.bookresponse.Item
 import com.pedrogomez.mylistaplication.booklist.viewmodel.BookListViewModel
 import com.pedrogomez.mylistaplication.databinding.ActivityBookListBinding
@@ -77,7 +78,7 @@ class BookListActivity : AppCompatActivity(),
         )
         intent.putExtra(
             BookDetailActivity.BOOK_DATA,
-            data
+            BookDataAdapter().getItemAsBookItem(data)
         )
         startActivity(
             intent
