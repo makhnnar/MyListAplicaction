@@ -41,11 +41,12 @@ class BooksAdapter(
         newItems?.let {
             items.addAll(it)
             "size in adapter ${items.size}".print()
-            notifyItemInserted(items.size)
+            notifyItemInserted(newItems.size)
         }
     }
 
     fun clearData(){
         items.clear()
+        notifyDataSetChanged()
     }
 }

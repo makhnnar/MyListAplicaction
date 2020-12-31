@@ -23,22 +23,47 @@ class BookListViewModel(private val booksRepository: BooksRepository) : ViewMode
         return booksLiveData
     }
 
-    fun getReposFromGitHub(
+    fun getNewBooks(
+        query : String
+    ){
+        "Query $query".print()
+        if(query.isNotEmpty()){
+            booksLiveData.postValue(
+                Result.LoadingNewContent(true)
+            )
+            getReposFromGitHub(
+                getStringAsQueryString(query),
+                0
+            )
+        }
+    }
+
+    fun loadMoreBooks(
         query : String,
         page:Int
     ){
         "Query $query".print()
         if(query.isNotEmpty()){
-            scope.launch {
-                booksLiveData.postValue(
-                    Result.Loading(true)
-                )
-                booksRepository.getListOfBooks(
-                    booksLiveData,
-                    query,
-                    page
-                )
-            }
+            booksLiveData.postValue(
+                Result.LoadingMoreContent(true)
+            )
+            getReposFromGitHub(
+                getStringAsQueryString(query),
+                page
+            )
+        }
+    }
+
+    private fun getReposFromGitHub(
+        query : String,
+        page:Int
+    ){
+        scope.launch {
+            booksRepository.getListOfBooks(
+                booksLiveData,
+                query,
+                page
+            )
         }
     }
 

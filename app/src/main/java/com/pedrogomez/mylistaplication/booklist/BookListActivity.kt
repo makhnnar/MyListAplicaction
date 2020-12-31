@@ -1,28 +1,27 @@
 package com.pedrogomez.mylistaplication.booklist
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.pedrogomez.mylistaplication.base.BaseActivity
 import com.pedrogomez.mylistaplication.bookdetail.BookDetailActivity
 import com.pedrogomez.mylistaplication.booklist.adapter.BookViewHolder
 import com.pedrogomez.mylistaplication.booklist.adapter.BooksAdapter
 import com.pedrogomez.mylistaplication.booklist.models.adapters.BookDataAdapter
 import com.pedrogomez.mylistaplication.booklist.models.bookresponse.Item
+import com.pedrogomez.mylistaplication.booklist.models.result.Result
 import com.pedrogomez.mylistaplication.booklist.viewmodel.BookListViewModel
 import com.pedrogomez.mylistaplication.databinding.ActivityBookListBinding
-import org.koin.android.viewmodel.ext.android.viewModel
-import com.pedrogomez.mylistaplication.booklist.models.result.Result
 import com.pedrogomez.mylistaplication.extensions.remove
 import com.pedrogomez.mylistaplication.extensions.show
-import kotlinx.serialization.json.Json
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class BookListActivity : AppCompatActivity(),
+class BookListActivity : BaseActivity(),
     BookViewHolder.OnClickItemListener{
 
     private val bookListViewModel : BookListViewModel by viewModel()
@@ -43,7 +42,7 @@ class BookListActivity : AppCompatActivity(),
             if(counter!=null){
                 counter?.cancel()
             }
-            counter = object : CountDownTimer(500,100){
+            counter = object : CountDownTimer(500, 100){
                 override fun onTick(millisUntilFinished: Long) {
 
                 }
@@ -52,14 +51,17 @@ class BookListActivity : AppCompatActivity(),
                  * dejo de teclear
                  * */
                 override fun onFinish() {
-                    booksAdapter.clearData()
-                    bookListViewModel.getReposFromGitHub(
-                        it.toString(),
-                        0
+                    bookListViewModel.getNewBooks(
+                        it.toString()
                     )
                 }
 
             }.start()
+        }
+        binding.srlContainer.setOnRefreshListener {
+            bookListViewModel.getNewBooks(
+                binding.etSearchField.text.toString()
+            )
         }
     }
 
@@ -75,14 +77,20 @@ class BookListActivity : AppCompatActivity(),
         bookListViewModel.observeData().observe(
             this,
             Observer {
-                when(it){
-                    is Result.Success ->{
+                binding.srlContainer.isRefreshing = false
+                when (it) {
+                    is Result.Success -> {
                         binding.pbBooksLoading.remove()
                         booksAdapter.setData(
                             it.data.items
                         )
                     }
-                    is Result.Loading -> {
+                    is Result.LoadingNewContent -> {
+                        booksAdapter.clearData()
+                        hideKeyboard(binding.etSearchField)
+                        binding.pbBooksLoading.show()
+                    }
+                    is Result.LoadingMoreContent -> {
                         binding.pbBooksLoading.show()
                     }
                     is Result.Error -> {
