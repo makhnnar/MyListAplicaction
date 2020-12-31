@@ -5,6 +5,6 @@ A simple RecyclerView test using kotlin and MVVM pattern.
     Google's Book Api https://developers.google.com/books/
 
 - Main Dependencies:
-    Ktor
-    Koin
-    Glide
+    Ktor,
+    Koin,
+    Glide.
