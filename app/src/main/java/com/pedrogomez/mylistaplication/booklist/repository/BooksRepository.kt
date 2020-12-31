@@ -1,13 +1,13 @@
 package com.pedrogomez.mylistaplication.booklist.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.pedrogomez.mylistaplication.extensions.isValid
+import com.pedrogomez.mylistaplication.utils.extensions.isValid
 import com.pedrogomez.mylistaplication.booklist.models.bookresponse.BooksResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import com.pedrogomez.mylistaplication.booklist.models.result.Result
-import com.pedrogomez.mylistaplication.extensions.print
+import com.pedrogomez.mylistaplication.utils.extensions.print
 
 class BooksRepository( private val client : HttpClient) {
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import com.pedrogomez.mylistaplication.booklist.models.result.Result
-import com.pedrogomez.mylistaplication.extensions.print
+import com.pedrogomez.mylistaplication.utils.extensions.print
 
 class BookListViewModel(private val booksRepository: BooksRepository) : ViewModel() {
 

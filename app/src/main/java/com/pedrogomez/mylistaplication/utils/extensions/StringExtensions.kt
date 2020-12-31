@@ -1,4 +1,4 @@
-package com.pedrogomez.mylistaplication.extensions
+package com.pedrogomez.mylistaplication.utils.extensions
 
 import android.util.Log
 

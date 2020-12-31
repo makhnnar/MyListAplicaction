@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pedrogomez.mylistaplication.booklist.models.bookresponse.Item
-import com.pedrogomez.mylistaplication.extensions.print
+import com.pedrogomez.mylistaplication.utils.extensions.print
 
 class BooksAdapter(
     private val onClickItemListener: BookViewHolder.OnClickItemListener

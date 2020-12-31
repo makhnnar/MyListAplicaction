@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.pedrogomez.mylistaplication.booklist.models.bookitem.BookItem
 import com.pedrogomez.mylistaplication.databinding.ActivityBookDetailBinding
-import com.pedrogomez.mylistaplication.extensions.print
-import com.pedrogomez.mylistaplication.extensions.remove
+import com.pedrogomez.mylistaplication.utils.extensions.print
+import com.pedrogomez.mylistaplication.utils.extensions.remove
 
 
 class BookDetailActivity : AppCompatActivity() {
