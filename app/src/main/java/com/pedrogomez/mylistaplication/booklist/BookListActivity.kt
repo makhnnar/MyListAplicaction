@@ -36,7 +36,7 @@ class BookListActivity : AppCompatActivity(),
         initRecyclerView()
         initObservers()
         bookListViewModel.getReposFromGitHub(
-            "",
+            "harry potter",
             0
         )
     }

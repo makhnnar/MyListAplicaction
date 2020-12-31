@@ -17,8 +17,8 @@ class BooksRepository( private val client : HttpClient) {
             page:Int
     ){
         try{
-            //val requestUrl = "https://www.googleapis.com/books/v1/volumes?q=$query&startIndex=${page*10}&maxResults=10"
-            val requestUrl = "http://192.168.0.103:3000/testQueries2"
+            val requestUrl = "https://www.googleapis.com/books/v1/volumes?q=$query&startIndex=${page*10}&maxResults=10"
+            //val requestUrl = "http://192.168.0.103:3000/testQueries2"
             val response =
                 client.request<BooksResponse>(requestUrl) {
                     method = HttpMethod.Get
