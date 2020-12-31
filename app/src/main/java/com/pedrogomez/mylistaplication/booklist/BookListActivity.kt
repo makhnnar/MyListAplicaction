@@ -3,8 +3,10 @@ package com.pedrogomez.mylistaplication.booklist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pedrogomez.mylistaplication.bookdetail.BookDetailActivity
@@ -29,16 +31,36 @@ class BookListActivity : AppCompatActivity(),
 
     private lateinit var booksAdapter : BooksAdapter
 
+    private var counter : CountDownTimer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initRecyclerView()
         initObservers()
-        bookListViewModel.getReposFromGitHub(
-            "harry potter",
-            0
-        )
+        binding.etSearchField.addTextChangedListener {
+            if(counter!=null){
+                counter?.cancel()
+            }
+            counter = object : CountDownTimer(500,100){
+                override fun onTick(millisUntilFinished: Long) {
+
+                }
+                /**
+                 * Este contador se ejecuta para llamar al endpoint si y solo si el usario
+                 * dejo de teclear
+                 * */
+                override fun onFinish() {
+                    booksAdapter.clearData()
+                    bookListViewModel.getReposFromGitHub(
+                        it.toString(),
+                        0
+                    )
+                }
+
+            }.start()
+        }
     }
 
     private fun initRecyclerView() {

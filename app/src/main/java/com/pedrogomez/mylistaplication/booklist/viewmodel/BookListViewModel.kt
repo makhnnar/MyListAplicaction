@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import com.pedrogomez.mylistaplication.booklist.models.result.Result
+import com.pedrogomez.mylistaplication.extensions.print
 
 class BookListViewModel(private val booksRepository: BooksRepository) : ViewModel() {
 
@@ -26,20 +27,19 @@ class BookListViewModel(private val booksRepository: BooksRepository) : ViewMode
         query : String,
         page:Int
     ){
-        scope.launch {
-            booksLiveData.postValue(
+        "Query $query".print()
+        if(query.isNotEmpty()){
+            scope.launch {
+                booksLiveData.postValue(
                     Result.Loading(true)
-            )
-            booksRepository.getListOfBooks(
-                booksLiveData,
-                query,
-                page
-            )
-        }/*.isCompleted.apply {
-            booksLiveData.postValue(
-                    Result.Loading(false)
-            )
-        }*/
+                )
+                booksRepository.getListOfBooks(
+                    booksLiveData,
+                    query,
+                    page
+                )
+            }
+        }
     }
 
     private fun getStringAsQueryString(query:String):String{

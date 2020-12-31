@@ -39,10 +39,13 @@ class BooksAdapter(
 
     fun setData(newItems: List<Item>?) {
         newItems?.let {
-            //items.clear()
             items.addAll(it)
             "size in adapter ${items.size}".print()
             notifyItemInserted(items.size)
         }
+    }
+
+    fun clearData(){
+        items.clear()
     }
 }
