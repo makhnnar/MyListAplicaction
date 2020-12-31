@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class PageScrollListener(
     private val mLinearLayoutManager: LinearLayoutManager?
-    ) : RecyclerView.OnScrollListener() {
+) : RecyclerView.OnScrollListener() {
 
     private var previousTotal = 1 // The total number of items in the dataset after the last load
     private var loading = true // True if we are still waiting for the last set of data to load.
@@ -43,6 +43,12 @@ abstract class PageScrollListener(
         }
     }
 
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        super.onScrollStateChanged(recyclerView, newState)
+        val visiblePos = mLinearLayoutManager?.findFirstCompletelyVisibleItemPosition()?:0
+        scrollIsOnTop(visiblePos<1)
+    }
+
     fun initFields(){
         previousTotal = 1
         loading = true
@@ -53,5 +59,7 @@ abstract class PageScrollListener(
     }
 
     abstract fun onLoadMore(currentPage: Int)
+
+    abstract fun scrollIsOnTop(isOnTop:Boolean)
 
 }

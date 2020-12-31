@@ -40,6 +40,8 @@ class BookListActivity : BaseActivity(),
         initRecyclerView()
         initObservers()
         initEditTextListeners()
+        binding.btnToTop.hide()
+        hideKeyboard(binding.etSearchField)
     }
 
     private fun initEditTextListeners() {
@@ -87,6 +89,14 @@ class BookListActivity : BaseActivity(),
                     binding.etSearchField.text.toString(),
                     currentPage
                 )
+            }
+
+            override fun scrollIsOnTop(isOnTop: Boolean) {
+                if(isOnTop){
+                    binding.btnToTop.hide()
+                }else{
+                    binding.btnToTop.show()
+                }
             }
         }
         binding.rvBookItems.addOnScrollListener(
