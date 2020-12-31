@@ -56,6 +56,9 @@ class BookDetailActivity : AppCompatActivity() {
         }catch (e: Exception){
             "bookData: error".print()
         }
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun openOnBrowser(url:String){

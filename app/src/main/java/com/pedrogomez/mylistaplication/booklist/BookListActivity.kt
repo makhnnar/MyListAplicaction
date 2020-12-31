@@ -92,6 +92,9 @@ class BookListActivity : BaseActivity(),
         binding.rvBookItems.addOnScrollListener(
             pageScrollListener
         )
+        binding.btnToTop.setOnClickListener {
+            binding.rvBookItems.smoothScrollToPosition(0)
+        }
     }
 
     private fun initObservers(){
