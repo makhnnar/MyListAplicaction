@@ -1,11 +1,15 @@
 package com.pedrogomez.mylistaplication.bookdetail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.pedrogomez.mylistaplication.booklist.models.bookitem.BookItem
-import com.pedrogomez.mylistaplication.booklist.models.bookresponse.Item
 import com.pedrogomez.mylistaplication.databinding.ActivityBookDetailBinding
 import com.pedrogomez.mylistaplication.extensions.print
+import com.pedrogomez.mylistaplication.extensions.remove
+
 
 class BookDetailActivity : AppCompatActivity() {
 
@@ -23,9 +27,42 @@ class BookDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         try{
             bookData = intent.getSerializableExtra(BOOK_DATA) as BookItem
-            "bookData: ${bookData.title}".print()
-        }catch (e:Exception){
+            Glide.with(this)
+                .load(
+                    bookData.cover
+                ).into(
+                    binding?.ivBook!!
+                )
+            binding.tvTitle.text = bookData.title
+            binding.tvAuthor.text = bookData.authors
+            binding.tvDatePublication.text = bookData.datePublication
+            binding.tvDescription.text = bookData.description
+            binding.btnShowMore.setOnClickListener {
+                openOnBrowser(
+                    bookData.prevLink?:""
+                )
+            }
+            binding.btnBuyThis.setOnClickListener {
+                openOnBrowser(
+                    bookData.buyLink?:""
+                )
+            }
+            if(bookData.prevLink==null){
+                binding.btnShowMore.remove()
+            }
+            if(bookData.buyLink==null){
+                binding.btnBuyThis.remove()
+            }
+        }catch (e: Exception){
             "bookData: error".print()
         }
+    }
+
+    private fun openOnBrowser(url:String){
+        val browserIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(url)
+        )
+        startActivity(browserIntent)
     }
 }

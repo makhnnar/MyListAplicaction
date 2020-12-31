@@ -6,7 +6,7 @@ import java.io.Serializable
 @kotlinx.serialization.Serializable
 class BookItem(
     val id: String?,
-    val selfLink: String?,
+    val prevLink: String?,
     val title : String,
     val authors: String,
     val datePublication: String?,

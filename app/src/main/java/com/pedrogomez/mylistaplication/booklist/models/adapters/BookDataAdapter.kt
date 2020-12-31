@@ -8,7 +8,7 @@ class BookDataAdapter {
     fun getItemAsBookItem(item: Item): BookItem {
         return BookItem(
             item.id,
-            item.selfLink,
+            item.volumeInfo?.previewLink,
             item.volumeInfo?.title?:"",
             getAsASingleString(item.volumeInfo?.authors),
             item.volumeInfo?.publishedDate,
@@ -31,9 +31,9 @@ class BookDataAdapter {
         return if(words!=null){
             var singleAux = ""
             words.forEach {
-                singleAux+= "$it,"
+                singleAux+= " $it,"
             }
-            singleAux
+            singleAux.dropLast(1)
         } else{
             ""
         }
