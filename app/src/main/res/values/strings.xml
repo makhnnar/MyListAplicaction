@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MyListAplication</string>
     <string name="search_hint">escriba el titulo o autor de la obra</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

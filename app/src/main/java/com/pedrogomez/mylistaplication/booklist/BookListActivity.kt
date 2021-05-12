@@ -1,13 +1,16 @@
 package com.pedrogomez.mylistaplication.booklist
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pedrogomez.mylistaplication.R
 import com.pedrogomez.mylistaplication.base.BaseActivity
 import com.pedrogomez.mylistaplication.bookdetail.BookDetailActivity
+import com.pedrogomez.mylistaplication.bookdetail.DetailFragment
 import com.pedrogomez.mylistaplication.booklist.adapter.BookViewHolder
 import com.pedrogomez.mylistaplication.booklist.adapter.BooksAdapter
 import com.pedrogomez.mylistaplication.booklist.models.adapters.BookDataAdapter
@@ -137,16 +140,26 @@ class BookListActivity : BaseActivity(),
     }
 
     override fun goToBookDetail(data: Item) {
-        val intent = Intent(
-            this,
-            BookDetailActivity::class.java
-        )
-        intent.putExtra(
-            BookDetailActivity.BOOK_DATA,
-            BookDataAdapter().getItemAsBookItem(data)
-        )
-        startActivity(
-            intent
-        )
+        if(resources.configuration.orientation== Configuration.ORIENTATION_LANDSCAPE){
+            val fragment = DetailFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.detailContainer,
+                    fragment
+                )
+                .commit()
+        }else{
+            val intent = Intent(
+                this,
+                BookDetailActivity::class.java
+            )
+            intent.putExtra(
+                BookDetailActivity.BOOK_DATA,
+                BookDataAdapter().getItemAsBookItem(data)
+            )
+            startActivity(
+                intent
+            )
+        }
     }
 }
